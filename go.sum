@@ -59,6 +59,8 @@ github.com/torbenconto/plutus v1.5.0 h1:JieKwCjH5tV1ggWKRHvaqnEaiu7Q6sMXn5Oz+WIf
 github.com/torbenconto/plutus v1.5.0/go.mod h1:9EMZwPQ/lyiXJg/P3VKjGXdNfJPYZqQozrA8J7zXoos=
 github.com/torbenconto/plutus v1.5.1 h1:z/4V132AnmctGpyEtUry405QIJzA/EaVKtG/p/6ZzVA=
 github.com/torbenconto/plutus v1.5.1/go.mod h1:9EMZwPQ/lyiXJg/P3VKjGXdNfJPYZqQozrA8J7zXoos=
+github.com/torbenconto/plutus v1.5.2 h1:AxJ/MIO1Fx8ybPb9lNM83QkCED795MzV8hEE7TeqD+w=
+github.com/torbenconto/plutus v1.5.2/go.mod h1:9EMZwPQ/lyiXJg/P3VKjGXdNfJPYZqQozrA8J7zXoos=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.11 h1:BMaWp1Bb6fHwEtbplGBGJ498wD+LKlNSl25MjdZY4dU=
