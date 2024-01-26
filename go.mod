@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/torbenconto/plutus v1.5.2
+	github.com/torbenconto/plutus v1.5.3
 )
 
 require (
