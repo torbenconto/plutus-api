@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/torbenconto/plutus/historical"
 	"github.com/torbenconto/plutus/interval"
+	"github.com/torbenconto/plutus/news"
 	"github.com/torbenconto/plutus/quote"
 	prange "github.com/torbenconto/plutus/range"
 	"net/http"
@@ -51,6 +52,21 @@ func setupRouter() *gin.Engine {
 			})
 		} else {
 			c.JSON(http.StatusOK, stock)
+		}
+	})
+
+	r.GET("/news/:query", func(c *gin.Context) {
+		// Get query from url param
+		query := c.Param("query")
+		// Create new news instance
+		data, err := news.NewNews(query)
+		// Check for errors, return 404 if not found or 200 along with news data if found
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": err,
+			})
+		} else {
+			c.JSON(http.StatusOK, data)
 		}
 	})
 
