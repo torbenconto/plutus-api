@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/torbenconto/plutus/historical"
 	"github.com/torbenconto/plutus/interval"
@@ -75,6 +76,8 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	r := setupRouter()
+
+	r.Use(cors.Default())
 
 	// Listen and serve on 8000
 	err := r.Run(":8000")
