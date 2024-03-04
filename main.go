@@ -91,11 +91,18 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000" // Default port
+	}
+
+	// Setup router
 	r := setupRouter()
 
-	// Listen and serve on 8080
-	err := r.Run(":8080")
+	// Listen and serve on the specified port
+	err := r.Run(":" + port)
 	if err != nil {
+		fmt.Println("Error:", err)
 		return
 	}
 }
