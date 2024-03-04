@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/torbenconto/plutus/historical"
