@@ -93,8 +93,8 @@ func setupRouter() *gin.Engine {
 func main() {
 	r := setupRouter()
 
-	// Listen and serve on 8000
-	err := r.Run(":8000")
+	// Listen and serve on 8080
+	err := r.Run(":8080")
 	if err != nil {
 		return
 	}
