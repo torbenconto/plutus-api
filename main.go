@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/torbenconto/plutus/historical"
@@ -91,11 +93,18 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000" // Default port
+	}
+
+	// Setup router
 	r := setupRouter()
 
-	// Listen and serve on 8000
-	err := r.Run(":8000")
+	// Listen and serve on the specified port
+	err := r.Run(":" + port)
 	if err != nil {
+		fmt.Println("Error:", err)
 		return
 	}
 }
