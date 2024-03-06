@@ -9,7 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build and push the image
+        env:
+          GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
         run: |
           docker login --username $GHCR_USERNAME --password ${{ secrets.GH_PAT }} ghcr.io
           docker build -t ghcr.io/$GHCR_USERNAME/plutus-api:latest .
-          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/plutus-api:latest
+          docker push ghcr.io/$GHCR_USERNAME/plutus-api:latest
