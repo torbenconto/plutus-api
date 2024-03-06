@@ -4,6 +4,8 @@ FROM golang:1.22-bookworm
 # Set the working directory inside the container
 WORKDIR /app
 
+LABEL org.opencontainers.image.source=https://github.com/torbenconto/plutus-api
+
 # Copy the Go module files
 COPY go.mod go.sum ./
 
