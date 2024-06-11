@@ -18,5 +18,8 @@ COPY . .
 # Build the Go application
 RUN go build -o main .
 
+# Expose port 8001
+EXPOSE 8001
+
 # Set the entry point command to run the built binary
 CMD ["./main"]

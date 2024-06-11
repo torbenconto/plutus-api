@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/torbenconto/plutus/historical"
 	"github.com/torbenconto/plutus/interval"
-	"github.com/torbenconto/plutus/quote"
 	prange "github.com/torbenconto/plutus/range"
+	"github.com/torbenconto/plutus/stock"
 	"net/http"
 	"os"
 )
@@ -42,34 +42,47 @@ func setupRouter() *gin.Engine {
 		// Get ticker from url param
 		ticker := c.Param("ticker")
 		// Create new quote instance
-		stock, err := quote.NewQuote(ticker)
+		data, err := stock.NewQuote(ticker)
 		// Check for errors, return 404 if not found or 200 along with quote data if found
 		if err != nil {
 			c.JSON(http.StatusNotFound, gin.H{
 				"error": err,
 			})
 		} else {
-			c.JSON(http.StatusOK, stock)
+			c.JSON(http.StatusOK, data)
 		}
 
 	})
 
-	r.GET("/historical/:ticker/:range/:interval", func(c *gin.Context) {
+	r.GET("/historical/:ticker", func(c *gin.Context) {
 		// Get ticker from url param
 		ticker := c.Param("ticker")
 		// Get range from url param
-		_range := prange.RangeFromString(c.Param("range"))
+		_range := prange.RangeFromString(c.Query("range"))
 		// Get interval from url param
-		_interval := interval.IntervalFromString(c.Param("interval"))
+		_interval := interval.IntervalFromString(c.Query("interval"))
 		// Create new historical instance
-		stock, err := historical.NewHistorical(ticker, _range, _interval)
+		data, err := historical.NewHistorical(ticker, _range, _interval)
 		// Check for errors, return 404 if not found or 200 along with historical data if found
 		if err != nil {
 			c.JSON(http.StatusNotFound, gin.H{
 				"error": err,
 			})
 		} else {
-			c.JSON(http.StatusOK, stock)
+			c.JSON(http.StatusOK, data)
+		}
+	})
+
+	r.GET("/dividend/:ticker", func(c *gin.Context) {
+		ticker := c.Param("ticker")
+
+		data, err := stock.NewDividendInfo(ticker)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": err,
+			})
+		} else {
+			c.JSON(http.StatusOK, data)
 		}
 	})
 
@@ -79,7 +92,7 @@ func setupRouter() *gin.Engine {
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8000" // Default port
+		port = "8001" // Default port
 	}
 
 	// Setup router

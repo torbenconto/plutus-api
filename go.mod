@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-gonic/gin v1.10.0
-	github.com/torbenconto/plutus v1.5.5
+	github.com/torbenconto/plutus v1.6.0
 )
 
 require (
