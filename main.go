@@ -43,10 +43,9 @@ func setupRouter() *gin.Engine {
 		ticker := c.Param("ticker")
 		// Create new quote instance
 		data, err := stock.NewQuote(ticker)
-		// Check for errors, return 404 if not found or 200 along with quote data if found
 		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{
-				"error": err,
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 		} else {
 			c.JSON(http.StatusOK, data)
@@ -65,8 +64,8 @@ func setupRouter() *gin.Engine {
 		data, err := historical.NewHistorical(ticker, _range, _interval)
 		// Check for errors, return 404 if not found or 200 along with historical data if found
 		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{
-				"error": err,
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 		} else {
 			c.JSON(http.StatusOK, data)
@@ -80,7 +79,7 @@ func setupRouter() *gin.Engine {
 		data, err := stock.NewDividendInfo(ticker)
 		if err != nil {
 			fmt.Printf("Error fetching dividend info for ticker %s: %v\n", ticker, err) // Log the error
-			c.JSON(http.StatusNotFound, gin.H{
+			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(), // Ensure the error is string
 			})
 		} else {
