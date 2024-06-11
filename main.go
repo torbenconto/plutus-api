@@ -75,11 +75,13 @@ func setupRouter() *gin.Engine {
 
 	r.GET("/dividend/:ticker", func(c *gin.Context) {
 		ticker := c.Param("ticker")
+		fmt.Printf("Received request for ticker: %s\n", ticker) // Log the ticker
 
 		data, err := stock.NewDividendInfo(ticker)
 		if err != nil {
+			fmt.Printf("Error fetching dividend info for ticker %s: %v\n", ticker, err) // Log the error
 			c.JSON(http.StatusNotFound, gin.H{
-				"error": err,
+				"error": err.Error(), // Ensure the error is string
 			})
 		} else {
 			c.JSON(http.StatusOK, data)
