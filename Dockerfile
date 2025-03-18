@@ -30,6 +30,6 @@ COPY --from=builder /app/main /app/main
 # Use the unprivileged user to run the application
 USER appuser
 
-EXPOSE 8001
+EXPOSE 8080
 
 ENTRYPOINT ["/app/main"]

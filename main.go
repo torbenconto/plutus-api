@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	"github.com/torbenconto/plutus/historical"
-	"github.com/torbenconto/plutus/interval"
-	prange "github.com/torbenconto/plutus/range"
-	"github.com/torbenconto/plutus/stock"
 	"net/http"
 	"os"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/torbenconto/plutus/v2"
+	"github.com/torbenconto/plutus/v2/interval"
+	_range "github.com/torbenconto/plutus/v2/range"
 )
 
 func setupRouter() *gin.Engine {
@@ -42,7 +42,7 @@ func setupRouter() *gin.Engine {
 		// Get ticker from url param
 		ticker := c.Param("ticker")
 		// Create new quote instance
-		data, err := stock.NewQuote(ticker)
+		data, err := plutus.GetQuote(ticker)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -57,11 +57,12 @@ func setupRouter() *gin.Engine {
 		// Get ticker from url param
 		ticker := c.Param("ticker")
 		// Get range from url param
-		_range := prange.RangeFromString(c.Query("range"))
+		r := _range.RangeFromString(c.Query("range"))
 		// Get interval from url param
-		_interval := interval.IntervalFromString(c.Query("interval"))
+		i := interval.IntervalFromString(c.Query("interval"))
 		// Create new historical instance
-		data, err := historical.NewHistorical(ticker, _range, _interval)
+
+		data, err := plutus.GetHistoricalQuote(ticker, r, i)
 		// Check for errors, return 404 if not found or 200 along with historical data if found
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -76,7 +77,7 @@ func setupRouter() *gin.Engine {
 		ticker := c.Param("ticker")
 		fmt.Printf("Received request for ticker: %s\n", ticker) // Log the ticker
 
-		data, err := stock.NewDividendInfo(ticker)
+		data, err := plutus.GetDividendInfo(ticker)
 		if err != nil {
 			fmt.Printf("Error fetching dividend info for ticker %s: %v\n", ticker, err) // Log the error
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -93,7 +94,7 @@ func setupRouter() *gin.Engine {
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8001" // Default port
+		port = "8080" // Default port
 	}
 
 	// Setup router
