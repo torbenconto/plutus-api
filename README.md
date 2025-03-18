@@ -26,7 +26,7 @@ Interval can be: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
 docker pull ghcr.io/torbenconto/plutus-api:latest
 ```
 ```bash
-docker run -p 8080:8080 plutus-api:latest
+docker run -p 8080:8080 ghcr.io/torbenconto/plutus-api:latest
 ```
 
 Plutus Api will be running on port 8080 and accessible at http://localhost:8080
